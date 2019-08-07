@@ -41,7 +41,40 @@ class ArticleController extends Controller
         // $article->article_text = $request->article_text;
         //$article->save();
 
-        Article::create($request->all());
+        //magic method
+        //firstOrCreate and createOrUpdate
+
+        //Article::create($request->all());
+
+        // $article = Article::where('title', $request->title)->first();
+
+        // if(!$article){
+        //     $article=Article::create([
+        //         'title' => $request->title,
+        //         'article_text' => $request->article_text
+        //     ]);
+        // }
+
+        //$article = Article::firstOrCreate(['title' => $request->title], ['article_text' => $request->article_text]);
+        
+
+        //update or create
+        //задгай код ашиглавал
+
+        // $article = Article::where('title', $request->title)->where('user_id', auth()->id()->first());
+
+        // if($article){
+        //     $article->update(['article_text' => $request->article_text]);
+        // }else{
+        //     $article = Article::create([
+        //         'title' => $request->title,
+        //         'article_text' => $request->article_text,
+        //         'user_id' => auth()->id(),
+        //     ]);
+        // }
+        
+        Article::updateOrCreate(['title' => $request->title, 'user_id' => auth()->id()], ['title' =>$request->title, 'article_text' => $request->article_text]);
+
 
     }
 
