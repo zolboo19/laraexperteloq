@@ -16,7 +16,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'surname', 'email', 'password',
     ];
 
     /**
@@ -36,4 +36,17 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    protected $perPage = 5;
+
+    public function getFullNameAttribute(){
+        return $this->name . ' ' . $this->surname;
+    }
+
+    public function setNameAttribute($value){
+        $this->attributes['name'] = ucfirst($value);
+    }
+    public function setSurnameAttribute($value){
+        $this->attributes['surname'] = ucfirst($value);
+    }
 }
